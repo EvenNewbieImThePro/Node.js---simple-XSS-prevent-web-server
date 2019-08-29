@@ -1,0 +1,55 @@
+<!DOCTYPE html> 
+<html lang="en">
+    <head>
+        <title>게시판</title>
+        <meta charset="utf-8">
+        <script 
+src="https://code.jquery.com/jquery-1.12.4.min.js" 
+integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" 
+crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div>
+            제목: <input type="text" id="title"><br>
+            내용: <textarea id="content"></textarea><br>
+            <button id="submit" onclick="postContent();">전송</button>
+        </div>
+        <div>
+            <ul id="contents"></ul>
+        </div>
+        <script>
+            function postContent() {
+                const title = $("#title").val();
+                const content = $("#content").val();
+                console.log(title, content);
+                $.ajax({
+                    method: "post",
+                    url: "/api/contents",
+                    data: { title: title, content: content },
+                    dataType: "json",
+                    success: (data) => {
+                        console.log(data);
+                        getContents;
+                    }
+                })
+            }
+            function getContents() {
+                $.ajax({
+                method: "get",
+                url: "/api/contents",
+                dataType: "json",
+                success: (data) => {
+                    console.log(data);
+                    $("#contents").html('');
+                    data.map((content) => {
+                        content.title = content.title ? content.title : 'untitled';
+                        const html = `<li><a href="/viewer/${content.id}">${content.title}</a></li>`;
+                        $("#contents").append(html);
+                    });
+                }
+            });
+            }
+            getContents();
+        </script>
+    </body>
+</html>

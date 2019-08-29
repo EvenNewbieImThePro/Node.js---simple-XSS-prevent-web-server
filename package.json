@@ -1,0 +1,17 @@
+{
+  "name": "securecoding",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "mariadb": "^2.1.0",
+    "sequelize": "^5.12.3",
+    "xss": "^1.0.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
